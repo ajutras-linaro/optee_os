@@ -326,3 +326,36 @@ CFG_TA_MBEDTLS ?= y
 # Compile the TA library mbedTLS with self test functions, the functions
 # need to be called to test anything
 CFG_TA_MBEDTLS_SELF_TEST ?= y
+
+# By default use tomcrypt as the main crypto lib providing an implementation
+# for the API in <crypto/crypto.h>
+# CFG_CRYPTOLIB_NAME is used as libname and
+# CFG_CRYPTOLIB_DIR is used as libdir when compiling the library
+#
+# It's also possible to configure to use mbedtls instead of tomcrypt.
+# Then the variables should be assigned as "CFG_CRYPTOLIB_NAME=mbedtls" and
+# "CFG_CRYPTOLIB_DIR=lib/libmbedtls" respectively.
+CFG_CRYPTOLIB_NAME ?= tomcrypt
+CFG_CRYPTOLIB_DIR ?= core/lib/libtomcrypt
+
+# Enable TEE_ALG_RSASSA_PKCS1_V1_5 algorithm for signing with PKCS#1 v1.5 EMSA
+# without ASN.1 around the hash.
+ifeq ($(CFG_CRYPTOLIB_NAME),tomcrypt)
+CFG_CRYPTO_RSASSA_NA1 ?= y
+CFG_CORE_MBEDTLS_MPI ?= y
+endif
+
+# Enable virtualization support. OP-TEE will not work without compatible
+# hypervisor if this option is enabled.
+CFG_VIRTUALIZATION ?= n
+
+ifeq ($(CFG_VIRTUALIZATION),y)
+$(call force,CFG_CORE_RODATA_NOEXEC,y)
+$(call force,CFG_CORE_RWDATA_NOEXEC,y)
+
+# Default number of virtual guests
+CFG_VIRT_GUEST_COUNT ?= 2
+endif
+
+# Enables backwards compatible derivation of RPMB and SSK keys
+CFG_CORE_HUK_SUBKEY_COMPAT ?= y

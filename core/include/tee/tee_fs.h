@@ -58,6 +58,9 @@ extern const struct tee_file_operations rpmb_fs_ops;
 
 TEE_Result tee_rpmb_fs_raw_open(const char *fname, bool create,
 				struct tee_file_handle **fh);
+
+void tee_rpmb_fs_configure(bool blocked);
+
 #endif
 
 #endif /*TEE_FS_H*/

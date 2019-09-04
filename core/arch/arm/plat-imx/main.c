@@ -131,6 +131,11 @@ register_dynamic_shm(DRAM1_NSEC_BASE, DRAM1_NSEC_SIZE);
 #endif
 #endif
 
+#ifdef CFG_HANTRO_VPU_PTA
+register_phys_mem_pgdir(MEM_AREA_IO_SEC, VPU_CORE0_BASE,
+			ROUNDUP(VPU_SIZE, CORE_MMU_PGDIR_SIZE));
+#endif
+
 const struct thread_handlers *generic_boot_get_handlers(void)
 {
 	return &handlers;

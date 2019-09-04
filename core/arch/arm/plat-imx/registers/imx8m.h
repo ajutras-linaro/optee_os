@@ -19,6 +19,17 @@
 #define SNVS_BASE	0x30370000
 #define OCOTP_BASE	0x30350000
 #define SECMEM_BASE	0x00100000
+#if defined(CFG_MX8MM) || defined(CFG_MX8MQ)
+#define VPU_SIZE	0x00200000
+#define VPU_CORE0_BASE	0x38300000
+#define VPU_CORE1_BASE	0x38310000
+#ifdef CFG_MX8MQ
+#define VPU_BLK_CTL_BASE 0x38320000
+#endif
+#ifdef CFG_MX8MM
+#define VPU_BLK_CTL_BASE 0x38330000
+#endif
+#endif
 
 #ifdef CFG_MX8MQ
 #define DIGPROG_OFFSET	0x06c

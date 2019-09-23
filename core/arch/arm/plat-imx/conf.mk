@@ -323,6 +323,8 @@ endif
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mqevk))
 CFG_DDR_SIZE ?= 0xc0000000
 CFG_UART_BASE ?= UART1_BASE
+
+CFG_IN_TREE_EARLY_TAS += avb/023f8f1a-292a-432b-8fc4-de8471358067
 endif
 
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mmevk))

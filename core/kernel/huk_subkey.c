@@ -73,9 +73,7 @@ TEE_Result huk_subkey_derive(enum huk_subkey_usage usage,
 	if (res)
 		return res;
 
-	res = tee_otp_get_hw_unique_key(&huk);
-	if (res)
-		goto out;
+	tee_otp_get_hw_unique_key(&huk);
 
 	res = crypto_mac_init(ctx, TEE_ALG_HMAC_SHA256, huk.data,
 			      sizeof(huk.data));

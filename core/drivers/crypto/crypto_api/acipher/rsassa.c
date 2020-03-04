@@ -885,6 +885,7 @@ TEE_Result rsassa_sign(struct drvcrypt_rsa_ssa *ssa_data)
 	case TEE_ALG_RSASSA_PKCS1_V1_5_SHA512:
 		return rsassa_pkcs1_v1_5_sign(ssa_data);
 
+	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_MD5:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA1:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA224:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA256:
@@ -911,6 +912,7 @@ TEE_Result rsassa_verify(struct drvcrypt_rsa_ssa *ssa_data)
 	case TEE_ALG_RSASSA_PKCS1_V1_5_SHA512:
 		return rsassa_pkcs1_v1_5_verify(ssa_data);
 
+	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_MD5:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA1:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA224:
 	case TEE_ALG_RSASSA_PKCS1_PSS_MGF1_SHA256:

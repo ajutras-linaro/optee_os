@@ -440,7 +440,7 @@ CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x16000000)
 else
 # for backward compatibility all the other will keep existing location at the end of DDR.
 # put optee end of ddr for AARCH64
-CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) - 0x02000000 + $(CFG_DDR_SIZE))
+CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) - 0x2000000 + $(CFG_DDR_SIZE))
 endif
 else
 # put optee at DDR base address + 64MB for AARCH32
@@ -501,3 +501,6 @@ endif
 
 # Cryptographic configuration
 include core/arch/arm/plat-imx/crypto_conf.mk
+
+# Secure Data Path configuration
+include core/arch/arm/plat-imx/sdp_conf.mk

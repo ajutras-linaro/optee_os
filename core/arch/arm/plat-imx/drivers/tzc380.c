@@ -66,6 +66,12 @@ void imx_configure_tzasc(void)
 					    CFG_SHMEM_SIZE, TZC_ATTR_SP_ALL,
 					    region);
 
+#ifdef CFG_SECURE_DATA_PATH
+		region = tzc_auto_configure(CFG_IMX_TZC_SDP_START,
+					    CFG_IMX_TZC_SDP_SIZE, TZC_ATTR_SP_S_RW,
+					    region);
+#endif
+
 		DMSG("Action register: 0x%" PRIx32, tzc_get_action());
 	}
 

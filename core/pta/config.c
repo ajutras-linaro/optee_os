@@ -22,6 +22,7 @@
 
 static unsigned int wConfig = CONFIG_RPMB_UNINITIALIZED;
 
+#ifdef CFG_RPMB_FS
 static TEE_Result set_rpmb_config(uint32_t type, TEE_Param p[TEE_NUM_PARAMS])
 {
 	unsigned int config = CONFIG_RPMB_UNINITIALIZED;
@@ -49,7 +50,7 @@ static TEE_Result set_rpmb_config(uint32_t type, TEE_Param p[TEE_NUM_PARAMS])
 
 	return TEE_SUCCESS;
 }
-
+#endif
 /*
  * Trusted Application Entry Points
  */
@@ -60,7 +61,11 @@ static TEE_Result invoke_command(void *psess __unused,
 {
 	switch (cmd) {
 	case CONFIG_CMD_SET_RPMB_CONFIG:
+#ifdef CFG_RPMB_FS
 		return set_rpmb_config(ptypes, params);
+#else
+		return TEE_ERROR_NOT_SUPPORTED;
+#endif
 	default:
 		break;
 	}

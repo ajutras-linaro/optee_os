@@ -9,3 +9,5 @@ srcs-$(CFG_SECSTOR_TA_MGMT_PTA) += secstor_ta_mgmt.c
 endif
 srcs-$(CFG_WITH_STATS) += stats.c
 srcs-$(CFG_SYSTEM_PTA) += system.c
+srcs-y += config.c
+cppflags-config.c-y += -Icore/include/tee

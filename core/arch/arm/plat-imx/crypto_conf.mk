@@ -95,7 +95,6 @@ endif
 ifneq ($(filter y, $(CFG_MX6QP) $(CFG_MX6Q) $(CFG_MX6D) $(CFG_MX6DL) \
 	$(CFG_MX6S) $(CFG_MX6SX) $(CFG_MX7ULP)), y)
 $(eval $(call cryphw-enable-drv-hw, MP))
-$(eval $(call cryphw-enable-drv-hw, DH))
 CFG_PTA_MP ?= y
 endif
 
@@ -103,6 +102,7 @@ ifneq ($(filter y, $(CFG_MX6QP) $(CFG_MX6Q) $(CFG_MX6D) $(CFG_MX6DL) \
 	$(CFG_MX6S) $(CFG_MX6SX) $(CFG_MX7ULP) $(CFG_MX8MQ) $(CFG_MX8MM)), y)
 $(eval $(call cryphw-enable-drv-hw, ECC))
 $(eval $(call cryphw-enable-drv-hw, RSA))
+$(eval $(call cryphw-enable-drv-hw, DH))
 endif
 
 $(call force, CFG_NXP_CAAM_ACIPHER_DRV, $(call cryphw-one-enabled, ECC RSA DH))

@@ -72,6 +72,11 @@ void imx_configure_tzasc(void)
 			region = tzc_auto_configure(CFG_IMX_TZC_SDP_START,
 						    CFG_IMX_TZC_SDP_SIZE, TZC_ATTR_SP_S_RW,
 						    region);
+		} else {
+			EMSG("*************************************");
+			EMSG("* Warning: Secure Data Path TZASC   *");
+			EMSG("*   protection is not supported     *");
+			EMSG("*************************************");
 		}
 #endif
 

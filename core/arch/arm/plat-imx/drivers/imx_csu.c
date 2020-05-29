@@ -11,6 +11,14 @@
 #include <kernel/pm.h>
 #include <mm/core_memprot.h>
 
+#if TRACE_LEVEL >= TRACE_DEBUG
+void csu_dump_state(void);
+#else
+static inline void csu_dump_state(void)
+{
+}
+#endif
+
 struct csu_setting {
 	int csu_index;
 	uint32_t value;
@@ -103,6 +111,8 @@ static TEE_Result csu_configure(void)
 			io_read32(csu_base + offset) | CSU_SETTING_LOCK);
 	}
 
+	csu_dump_state();
+
 	return TEE_SUCCESS;
 }
 
@@ -115,6 +125,33 @@ pm_enter_resume(enum pm_op op, uint32_t pm_hint __unused,
 
 	return TEE_SUCCESS;
 }
+
+#if TRACE_LEVEL >= TRACE_DEBUG
+
+void csu_dump_state(void)
+{
+	uint32_t n;
+	uint32_t temp_32reg;
+	vaddr_t csu_base;
+
+	csu_base = core_mmu_get_va(CSU_BASE, MEM_AREA_IO_SEC);
+	if (!csu_base)
+		panic();
+
+	DMSG("enter");
+	for (n = CSU_CSL_START; n < CSU_CSL_END; n += 4) {
+		temp_32reg = io_read32(csu_base + n);
+		if ((temp_32reg == (CSU_ACCESS_ALL | CSU_SETTING_LOCK)))
+			continue;
+
+		DMSG("");
+		DMSG("CSU_CSL%d", n/4);
+		DMSG(" 0x%08X", temp_32reg);
+	}
+	DMSG("exit");
+}
+
+#endif /* CFG_TRACE_LEVEL >= TRACE_DEBUG */
 
 static TEE_Result csu_init(void)
 {

@@ -53,6 +53,14 @@ const struct csu_setting csu_setting_imx7ds[] = {
 	{(-1), 0},
 };
 
+const struct csu_setting csu_setting_imx8m[] = {
+	{14, 0x3300FF},		/* Protect RDC     */
+	{15, 0xFF0033},		/* Protect CSU     */
+	{28, 0xFF0033},		/* Protect TZASC   */
+	{59, 0x3300FF},		/* Protect OCRAM_S */
+	{(-1), 0},
+};
+
 static TEE_Result csu_configure(void)
 {
 	vaddr_t csu_base;
@@ -73,6 +81,8 @@ static TEE_Result csu_configure(void)
 		csu_setting = csu_setting_imx6;
 	else if (soc_is_imx7ds())
 		csu_setting = csu_setting_imx7ds;
+	else if (soc_is_imx8m())
+		csu_setting = csu_setting_imx8m;
 	else
 		return TEE_SUCCESS;
 

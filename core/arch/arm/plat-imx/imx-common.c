@@ -137,6 +137,11 @@ bool soc_is_imx7ulp(void)
 	return imx_soc_type() == SOC_MX7ULP;
 }
 
+bool soc_is_imx8m(void)
+{
+	return imx_soc_type() == SOC_MX8M;
+}
+
 bool soc_is_imx8mq_b0_layer(void)
 {
 	if (imx_soc_type() == SOC_MX8M)

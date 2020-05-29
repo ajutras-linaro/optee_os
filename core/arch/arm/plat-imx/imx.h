@@ -44,6 +44,7 @@ bool soc_is_imx6dq(void);
 bool soc_is_imx6dqp(void);
 bool soc_is_imx7ds(void);
 bool soc_is_imx7ulp(void);
+bool soc_is_imx8m(void);
 bool soc_is_imx8mq_b0_layer(void);
 uint16_t soc_revision(void);
 uint32_t imx_soc_type(void);

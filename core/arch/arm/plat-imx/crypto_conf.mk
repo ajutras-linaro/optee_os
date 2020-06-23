@@ -114,18 +114,18 @@ cryphw-one-enabled = $(call cfg-one-enabled, \
 
 
 # Definition of the HW and Cryto Driver Algorithm supported by all i.MX
-$(eval $(call cryphw-enable-drv-hw, HASH))
+$(eval $(call cryphw-enable-drv-hw, CIPHER))
 $(eval $(call cryphw-enable-drv-hw, SM))
 $(eval $(call cryphw-enable-drv-hw, BLOB))
-$(eval $(call cryphw-enable-drv-hw, HMAC))
 
 ifneq ($(filter y, $(CFG_MX8MQ) $(CFG_MX8MM)), y)
-$(eval $(call cryphw-enable-drv-hw, CIPHER))
+$(eval $(call cryphw-enable-drv-hw, HASH))
+$(eval $(call cryphw-enable-drv-hw, HMAC))
 $(eval $(call cryphw-enable-drv-hw, CMAC))
 endif
 
 ifneq ($(filter y, $(CFG_MX6QP) $(CFG_MX6Q) $(CFG_MX6D) $(CFG_MX6DL) \
-	$(CFG_MX6S) $(CFG_MX6SX) $(CFG_MX7ULP)), y)
+	$(CFG_MX6S) $(CFG_MX6SX) $(CFG_MX7ULP) $(CFG_MX8QM) $(CFG_MX8QX)), y)
 $(eval $(call cryphw-enable-drv-hw, MP))
 CFG_PTA_MP ?= y
 endif

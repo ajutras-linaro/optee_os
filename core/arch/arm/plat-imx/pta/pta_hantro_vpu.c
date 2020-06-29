@@ -35,6 +35,8 @@
 
 #define IS_ALIGN(x,b) (!(x & (b - 1)))
 
+#define WAIT_DELAY 100
+
 static vaddr_t get_vpu_base(vpu_session *session)
 {
 	vaddr_t ctrl_base = NULL;
@@ -404,7 +406,6 @@ out:
 	return res;
 }
 
-
 static TEE_Result pta_vpu_wait(vpu_session *session,uint32_t param_types, TEE_Param params[TEE_NUM_PARAMS])
 {
 	TEE_Result res = TEE_SUCCESS;
@@ -438,7 +439,7 @@ static TEE_Result pta_vpu_wait(vpu_session *session,uint32_t param_types, TEE_Pa
 	if (nbTimeWait == (uint32_t)(-1)) {
 		infinite = true;
 	} else {
-		nbTimeWait = nbTimeWait * 2;
+		nbTimeWait = nbTimeWait * (1000 / WAIT_DELAY);
 	}
 
 	do
@@ -462,7 +463,7 @@ static TEE_Result pta_vpu_wait(vpu_session *session,uint32_t param_types, TEE_Pa
 			goto out;
 		}
 #endif
-		udelay(500);
+		udelay(WAIT_DELAY);
 
 #ifdef PERF_COUNTERS
 		pooling_loop++;
@@ -472,7 +473,7 @@ static TEE_Result pta_vpu_wait(vpu_session *session,uint32_t param_types, TEE_Pa
 	res = TEE_ERROR_CANCEL;
 out:
 #ifdef PERF_COUNTERS
-	params[0].value.b = pooling_loop*500;
+	params[0].value.b = pooling_loop*WAIT_DELAY;
 #endif
 	return res;
 }
